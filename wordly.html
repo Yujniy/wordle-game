@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wordly game</title>
+    <link rel="stylesheet" href="wordly.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+    <script>
+var words = ['моряк', 'рыбка', 'каска']; // Замените на свои слова
+var currentWord = '';
+var isInputComplete = false; // Флаг для отслеживания, введено ли полное слово
+var activeCell = 0;
+var timeout;
+
+$(document).ready(function() {
+  generateNewWord();
+
+  $(document).on('keydown', function(e) {
+    var allCellsFilled = $('.square').filter(function() {
+      return !$(this).text();
+    }).length === 0;
+
+    if (isInputComplete || allCellsFilled) {
+      return; // Прекращаем обработку клавиш, если слово уже угадано или все ячейки заполнены
+    }
+
+    var key = e.key.toLowerCase();
+
+    if (/^[а-я]$/.test(key)) {
+      var cell = $('.square').eq(activeCell);
+      document.title = "Юзер вводит слово";
+      cell.text(key);
+
+      if ((activeCell + 1) % 5 === 0) {
+        showHints();
+        // Проверка после заполнения каждой строки
+        var guess = $('.square').slice(activeCell - 4, activeCell + 1).map(function() {
+          return $(this).text();
+        }).get().join('');
+        if (guess === currentWord) {
+          isInputComplete = true; // Установка флага в true, если слово угадано
+          // Здесь можно добавить какие-либо действия при угадывании слова
+        }
+      }
+
+      if (activeCell >= $('.square').length - 1) {
+        activeCell = 0;
+      } else {
+        activeCell++;
+      }
+
+      clearTimeout(timeout);
+
+      timeout = setTimeout(function() {
+        document.title = "Wordly game";
+      }, 1000);
+    }
+  });
+});
+
+
+function generateNewWord() {
+  var randomIndex = Math.floor(Math.random() * words.length);
+  currentWord = words[randomIndex];
+}
+
+
+
+function showHints() {
+  // Здесь мы берем 5 ячеек, начиная с (activeCell - 4) и включая activeCell
+  var cells = $('.square').slice(activeCell - 4, activeCell + 1);
+  var guess = cells.map(function() {
+    return $(this).text();
+  }).get().join('');
+
+  cells.each(function(index) {
+        var cell = $(this);
+        var letter = guess[index];
+        if (currentWord[index] === letter) {
+            cell.addClass('correct');
+        } else if (currentWord.includes(letter)) {
+            cell.addClass('present');
+        } else {
+            cell.addClass('absent');
+        }
+        // Trigger reflow to restart the animation with the new class
+        cell[0].offsetWidth; // This line is added to trigger reflow
+    });
+}
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1 style="color: white;">Welcome to Wordly game!</h1>
+<div class="board">
+    <div class="row">
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+    </div>
+    <div class="row">
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+    </div>
+    <div class="row">
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+    </div>
+    <div class="row">
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+    </div>
+    <div class="row">
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+        <div class="square" autofocus></div>
+    </div>
+</div>
+</body>
+</html>
