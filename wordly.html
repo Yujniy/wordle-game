@@ -59,13 +59,11 @@ $(document).ready(function() {
         document.title = "Wordly game";
       }, 1000);
     }
-  // Добавляем обработчик события 'click' для квадратов
-  $('.square').on('click', function() {
-    // Проверяем, является ли устройство мобильным
-    if (/Mobi|Android/i.test(navigator.userAgent)) {
-      $('#hidden-input').focus(); // Переводим фокус на скрытый input
-    }
-  });
+
+    // Предполагается, что у вас есть скрытый input элемент с id="hidden-input"
+$('.square').on('click', function() {
+    $('#hidden-input').focus();
+});
   });
 });
 
@@ -104,44 +102,44 @@ function showHints() {
     <div class="container">
         <h1 style="color: white;">Welcome to Wordly game!</h1>
         <div class="board">
-          <div class="row">
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-          </div>
-          <div class="row">
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-          </div>
-          <div class="row">
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-          </div>
-          <div class="row">
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-          </div>
-          <div class="row">
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-              <div class="square"></div>
-          </div>
-      </div>
-  <!-- Добавляем скрытый input элемент для мобильных устройств -->
-  <input type="text" id="hidden-input" style="position: absolute; opacity: 0; pointer-events: none;" />
-  </div>
+            <div class="row">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
+            <div class="row">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
+            <div class="row">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
+            <div class="row">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
+            <div class="row">
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+                <div class="square"></div>
+            </div>
+        </div>
+            <!-- Скрытый input для вызова клавиатуры -->
+    <input type="text" id="hidden-input" style="position: absolute; opacity: 0; pointer-events: none;" autocomplete="off">
+    </div>
 </body>
 </html>

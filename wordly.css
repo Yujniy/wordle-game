@@ -121,13 +121,5 @@ body {
         align-items: center;
         flex-direction: column;
     }
-    /* Скрываем input элемент */
-    #hidden-input {
-      position: absolute;
-      opacity: 0;
-      pointer-events: none;
-      height: 0;
-      width: 0;
-    }
     /* Другие стили для мобильной версии */
 }
