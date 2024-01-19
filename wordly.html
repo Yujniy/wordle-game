@@ -59,11 +59,6 @@ $(document).ready(function() {
         document.title = "Wordly game";
       }, 1000);
     }
-
-    // Предполагается, что у вас есть скрытый input элемент с id="hidden-input"
-$('.square').on('click', function() {
-    $('#hidden-input').focus();
-});
   });
 });
 
@@ -83,19 +78,55 @@ function showHints() {
   }).get().join('');
 
   cells.each(function(index) {
-        var cell = $(this);
-        var letter = guess[index];
-        if (currentWord[index] === letter) {
-            cell.addClass('correct');
-        } else if (currentWord.includes(letter)) {
-            cell.addClass('present');
-        } else {
-            cell.addClass('absent');
-        }
+    var cell = $(this);
+    var letter = guess[index];
+    if (currentWord[index] === letter) {
+      cell.addClass('correct');
+      $('.key').filter(function() {
+        return $(this).text() === letter;
+      }).addClass('key-correct');
+    } else if (currentWord.includes(letter)) {
+      cell.addClass('present');
+      $('.key').filter(function() {
+        return $(this).text() === letter;
+      }).addClass('key-present');
+    } else {
+      cell.addClass('absent');
+      $('.key').filter(function() {
+        return $(this).text() === letter;
+      }).addClass('key-absent');
+    }
         // Trigger reflow to restart the animation with the new class
         cell[0].offsetWidth; // This line is added to trigger reflow
     });
 }
+
+$(document).ready(function() {
+  // Обработчик нажатия на кнопки клавиатуры
+  $('.key').on('click', function() {
+      var key = $(this).text();
+      // Обработка нажатия на буквенные кнопки
+      // Добавляем букву в активную ячейку и перемещаемся вперед
+      var cell = $('.square').eq(activeCell);
+      if (!cell.hasClass('filled')) {
+          cell.text(key).addClass('filled');
+          if ((activeCell + 1) % 5 === 0) {
+              showHints();
+              // Проверка после заполнения каждой строки
+              var guess = $('.square').slice(activeCell - 4, activeCell).map(function() {
+                  return $(this).text();
+              }).get().join('');
+              if (guess === currentWord) {
+                  isInputComplete = true; // Установка флага в true, если слово угадано
+                  // Здесь можно добавить какие-либо действия при угадывании слова
+              }
+          }
+          if (activeCell < $('.square').length - 1) {
+              activeCell++;
+          }
+      }
+  });
+});
     </script>
 </head>
 <body>
@@ -138,8 +169,45 @@ function showHints() {
                 <div class="square"></div>
             </div>
         </div>
-            <!-- Скрытый input для вызова клавиатуры -->
-    <input type="text" id="hidden-input" style="position: absolute; opacity: 0; pointer-events: none;" autocomplete="off">
     </div>
+
+<div class="keyboard" id="keyboard">
+  <div class="key-row">
+      <button class="key">а</button>
+      <button class="key">б</button>
+      <button class="key">в</button>
+      <button class="key">г</button>
+      <button class="key">д</button>
+      <button class="key">е</button>
+      <button class="key">ё</button>
+      <button class="key">ж</button>
+      <button class="key">з</button>
+      <button class="key">и</button>
+      <button class="key">й</button>
+      <button class="key">к</button>
+      <button class="key">л</button>
+      <button class="key">м</button>
+      <button class="key">н</button>
+      <button class="key">о</button>
+      <button class="key">п</button>
+      <button class="key">р</button>
+      <button class="key">с</button>
+      <button class="key">т</button>
+      <button class="key">у</button>
+      <button class="key">ф</button>
+      <button class="key">х</button>
+      <button class="key">ц</button>
+      <button class="key">ч</button>
+      <button class="key">ш</button>
+      <button class="key">щ</button>
+      <button class="key">ъ</button>
+      <button class="key">ы</button>
+      <button class="key">ь</button>
+      <button class="key">э</button>
+      <button class="key">ю</button>
+      <button class="key">я</button>
+  </div>
+  <!-- Удалены клавиши "Удалить" и "Ввод" -->
+</div>
 </body>
 </html>

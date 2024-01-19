@@ -27,6 +27,12 @@ body {
 
 .container {
     text-align: center;
+    margin-top: -50px; /* Уменьшите значение, чтобы поднять контейнер выше */
+}
+
+h1 {
+    color: white;
+    margin-top: -20px; /* Уменьшите значение, чтобы поднять текст выше */
 }
 
 .board {
@@ -122,4 +128,86 @@ body {
         flex-direction: column;
     }
     /* Другие стили для мобильной версии */
+}
+
+
+.keyboard {
+    display: none; /* Скрыть клавиатуру по умолчанию */
+    flex-direction: column;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #ddd;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+}
+
+.key-row {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+.key.key-correct {
+  background-color: #b3ffb3; /* Зеленый цвет для угаданных клавиш */
+}
+.key.key-present {
+  background-color: #ffffb3; /* Желтый цвет для клавиш с буквами не на своем месте */
+}
+
+.key.key-absent {
+  background-color: #d9d9d9; /* Серый цвет для клавиш с буквами, которых нет в слове */
+}
+.key {
+   background-color: #f1f1f1;
+   border: 1px solid #ccc;
+   padding: 10px 15px;
+   margin: 0 5px;
+   border-radius: 5px;
+   font-size: 18px;
+   transition: background-color 0.5s ease; /* Добавляем плавное изменение цвета фона */
+
+}
+
+.special-key {
+   flex-grow: 1;
+}
+
+@media (max-width: 768px) {
+    .keyboard {
+        display: flex; /* Показать клавиатуру на мобильных устройствах */
+    }
+}
+
+
+.key-row {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin-bottom: 5px;
+}
+
+@media (max-width: 500px) {
+    .container {
+        text-align: center;
+        margin-top: -80px; /* Increased from -50px to -80px */
+    }
+
+    h1 {
+        color: white;
+        margin-top: -50px; /* Increased from -20px to -50px */
+    }
+}
+
+@media (max-width: 350px) {
+    .container {
+        text-align: center;
+        margin-top: -130px; /* Increased from -50px to -80px */
+    }
+
+    h1 {
+        color: white;
+        margin-top: -100px; /* Increased from -20px to -50px */
+    }
 }
