@@ -105,3 +105,29 @@ body {
     50% { background-color: #d9d9d9; color: rgb(88, 86, 86); }
     100% { background-color: #d9d9d9; color: rgb(88, 86, 86); }
 }
+
+@media (max-width: 768px) {
+    body {
+        flex-direction: column;
+        /* Дополнительные стили для мобильной версии */
+    }
+    .square {
+        width: 50px; /* Меньший размер для клеток на мобильных устройствах */
+        height: 50px;
+    }
+    .container, .board {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
+    /* Скрываем input элемент */
+    #hidden-input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+      height: 0;
+      width: 0;
+    }
+    /* Другие стили для мобильной версии */
+}
