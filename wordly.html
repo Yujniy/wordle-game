@@ -77,28 +77,52 @@ function showHints() {
     return $(this).text();
   }).get().join('');
 
+  var letterCounts = {}; // Словарь для подсчета букв в слове
+  for (var i = 0; i < currentWord.length; i++) {
+    var letter = currentWord[i];
+    if (!letterCounts[letter]) {
+      letterCounts[letter] = { total: 0, correct: 0 };
+    }
+    letterCounts[letter].total++;
+  }
+
+  $('.key').removeClass('key-correct key-present key-absent key-half-correct');
+
   cells.each(function(index) {
     var cell = $(this);
     var letter = guess[index];
+    var keyElement = $('.key').filter(function() {
+      return $(this).text() === letter;
+    });
+
     if (currentWord[index] === letter) {
       cell.addClass('correct');
-      $('.key').filter(function() {
-        return $(this).text() === letter;
-      }).addClass('key-correct');
+      letterCounts[letter].correct++;
+      if (letterCounts[letter].correct <= letterCounts[letter].total) {
+        keyElement.addClass('key-correct');
+      }
     } else if (currentWord.includes(letter)) {
       cell.addClass('present');
-      $('.key').filter(function() {
-        return $(this).text() === letter;
-      }).addClass('key-present');
+      if ((letterCounts[letter].correct || 0) < letterCounts[letter].total) {
+        keyElement.addClass('key-half-correct');
+      }
     } else {
       cell.addClass('absent');
-      $('.key').filter(function() {
-        return $(this).text() === letter;
-      }).addClass('key-absent');
+      keyElement.addClass('key-absent');
     }
-        // Trigger reflow to restart the animation with the new class
-        cell[0].offsetWidth; // This line is added to trigger reflow
-    });
+    // Trigger reflow to restart the animation with the new class
+    cell[0].offsetWidth; // This line is added to trigger reflow
+  });
+
+  // Обновляем классы для клавиш, у которых есть половинные совпадения
+  $('.key-half-correct').each(function() {
+    var key = $(this).text();
+    if (letterCounts[key].correct > 0) {
+      $(this).addClass('key-correct');
+    } else {
+      $(this).addClass('key-present');
+    }
+  });
 }
 
 $(document).ready(function() {
