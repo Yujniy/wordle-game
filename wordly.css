@@ -200,14 +200,15 @@ h1 {
     }
 }
 
-@media (max-width: 350px) {
+@media (max-width: 602px) {
     .container {
-        text-align: center;
-        margin-top: -130px; /* Increased from -50px to -80px */
+        position: absolute; /* Добавляем абсолютное позиционирование */
+        top: 20px; /* Прижимаем контейнер к верху экрана */
+        left: 0; /* Для выравнивания по горизонтали */
+        right: 0; /* Для выравнивания по горизонтали */
+        margin-top: 0; /* Уже установлено в 0 */
     }
-
-    h1 {
-        color: white;
-        margin-top: -100px; /* Increased from -20px to -50px */
+    .container h1 {
+        display: none;
     }
 }
