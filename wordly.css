@@ -211,8 +211,3 @@ h1 {
         margin-top: -100px; /* Increased from -20px to -50px */
     }
 }
-
-.key.key-half-correct {
-  background: linear-gradient(to right, #ffffb3 50%, #b3ffb3 50%);
-  color: rgb(88, 86, 86);
-}
